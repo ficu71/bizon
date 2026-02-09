@@ -9,3 +9,9 @@ output/
 
 # Przykładowe wygenerowane save'y
 examples/*.sav
+
+# Web
+gui-web/node_modules/
+gui-web/dist/
+gui-web/.env
+.DS_Store
