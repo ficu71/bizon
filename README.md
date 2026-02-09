@@ -22,7 +22,7 @@ For the best experience, use our modern, glassmorphic web interface.
 ### How to Launch
 
 1. **Reset Ports**: `lsof -ti:3000,3001,8000 | xargs kill -9` (optional, if ports are stuck)
-2. **Start Backend**: `PYTHONPATH=. /Users/f1cu_71/Library/Python/3.14/bin/uvicorn backend.main:app --port 8000`
+2. **Start Backend**: `PYTHONPATH=. python3 -m uvicorn backend.main:app --port 8000`
 3. **Start Frontend**: `cd gui-web && npm run dev`
 4. **Open**: [http://localhost:3000](http://localhost:3000)
 
