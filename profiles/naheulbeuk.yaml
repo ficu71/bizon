@@ -1,0 +1,34 @@
+game_id: naheulbeuk
+name: 'The Dungeon of Naheulbeuk: The Amulet of Chaos'
+engine: unity
+
+save_locations:
+  macos:
+    - '~/Library/Application Support/Artefacts Studio/Naheulbeuk/Save/'
+    - '~/Library/Application Support/Save/'
+  windows:
+    - '%USERPROFILE%/AppData/LocalLow/Artefacts Studio/Naheulbeuk/Save/'
+
+save_pattern: 'Game_*.sav'
+
+fields:
+  gold:
+    type: uint16
+    offset: null
+    description: 'Player gold'
+    hints:
+      - 'near:m_gold'
+      - 'range:0-65535'
+    max_safe_value: 65535
+  
+  perk_points:
+    type: uint16
+    offset: null
+    description: 'Skill points'
+    hints:
+      - 'range:0-100'
+    max_safe_value: 100
+
+version: '1.0'
+author: f1cu_71
+last_updated: '2026-02-09'
