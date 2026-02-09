@@ -1,0 +1,11 @@
+# Python
+__pycache__/
+*.pyc
+
+# Save Kombajn output / artefakty
+output/
+*.bak
+*.patched.sav
+
+# Przykładowe wygenerowane save'y
+examples/*.sav
