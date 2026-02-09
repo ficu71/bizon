@@ -1,67 +1,64 @@
+import argparse
 import sys
-import zlib
-import os
+from naheulbeuk_patch import NaheulbeukSave
 
-def patch_naheulbeuk_gold(container_path, new_gold):
-    with open(container_path, 'rb') as f:
-        data = f.read()
+def main():
+    parser = argparse.ArgumentParser(description="Patch gold in Naheulbeuk save files with safety checks.")
+    parser.add_argument("save_file", help="Path to the .sav file")
+    parser.add_argument("new_gold", type=int, help="New gold amount to set")
+    parser.add_argument("--mode", choices=["player", "all"], default="player", 
+                        help="DANGER: 'all' patches everything, 'player' (default) is safer.")
+    parser.add_argument("--current", type=int, help="Current gold amount (required for 'player' mode)")
+    parser.add_argument("--out", help="Output file path (default: <input>.patched)")
+    parser.add_argument("--dry-run", action="store_true", help="Don't save changes, just show what would be done")
 
-    # Find GZIP header
-    magic = b'\x1f\x8b\x08'
-    offset = data.find(magic)
-    if offset == -1:
-        print("Error: Could not find GZIP payload in save file.")
-        return
+    args = parser.parse_args()
 
-    print(f"Found compressed payload at offset 0x{offset:X}")
-    
-    # Decompress
+    if args.mode == "player" and args.current is None:
+        print("Error: --current is required in 'player' mode to ensure safety.")
+        sys.exit(1)
+
     try:
-        decompressed = bytearray(zlib.decompress(data[offset:], zlib.MAX_WBITS | 16))
-        print(f"Decompressed {len(decompressed)} bytes.")
+        save = NaheulbeukSave(args.save_file)
+        save.load()
     except Exception as e:
-        print(f"Error decompressing: {e}")
-        return
+        print(f"Error: {e}")
+        sys.exit(1)
 
-    # Find all m_gold in decompressed data
-    field_name = b'm_gold'
-    start = 0
-    count = 0
-    while True:
-        idx = decompressed.find(field_name, start)
-        if idx == -1:
-            break
-        val_offset = idx + len(field_name)
-        old_val = int.from_bytes(decompressed[val_offset:val_offset+4], 'little')
-        decompressed[val_offset:val_offset+4] = int(new_gold).to_bytes(4, 'little')
-        print(f"Patched 'm_gold' at 0x{idx:X} (Old value: {old_val})")
-        count += 1
-        start = idx + 1
+    candidates = save.find_fields(b'm_gold')
+    
+    if not candidates:
+        print("Error: Could not find any 'm_gold' fields in the save.")
+        sys.exit(1)
 
-    if count == 0:
-        print("Error: Could not find 'm_gold' in decompressed data.")
-        return
-    
-    print(f"Patched {count} instances of 'm_gold' in decompressed data.")
-    
-    # Recompress
-    # Note: We use compresslevel=9 and default settings. 
-    # Unity/GZIP might use slightly different settings, but zlib usually works.
-    compressor = zlib.compressobj(9, zlib.DEFLATED, zlib.MAX_WBITS | 16)
-    new_compressed = compressor.compress(decompressed) + compressor.flush()
-    
-    # Construct new file: Header + New Compressed Payload
-    new_data = data[:offset] + new_compressed
-    
-    output_path = container_path + ".patched"
-    with open(output_path, 'wb') as f:
-        f.write(new_data)
-    
-    print(f"Successfully created patched save: {output_path}")
-    print("Replace your original save with this file (make a backup first!).")
+    to_patch = []
+    if args.mode == "player":
+        # Find matches for current gold
+        matches = [c for c in candidates if c['current_value'] == args.current]
+        if len(matches) == 0:
+            print(f"Error: No 'm_gold' fields found with current value {args.current}.")
+            print("Found values: " + ", ".join(str(c['current_value']) for c in candidates))
+            sys.exit(1)
+        if len(matches) > 1:
+            print(f"Error: Multiple 'm_gold' fields found with value {args.current}. Cannot be sure which is the player.")
+            print("Try use --mode all if you are sure, or check values in game.")
+            sys.exit(1)
+        to_patch = matches
+    else:
+        to_patch = candidates
+
+    print(f"Plan: Patching {len(to_patch)} occurrences of 'm_gold' -> {args.new_gold}")
+    for c in to_patch:
+        print(f"  Offset 0x{c['marker_offset']:X}: {c['current_value']} -> {args.new_gold}")
+        if not args.dry_run:
+            save.patch_candidate(c, args.new_gold)
+
+    if not args.dry_run:
+        out_path = args.out if args.out else args.save_file + ".patched"
+        save.save(out_path)
+        print(f"Successfully saved to: {out_path}")
+    else:
+        print("Dry-run complete. No changes saved.")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python3 patch_gold.py <save_file> <gold_amount>")
-    else:
-        patch_naheulbeuk_gold(sys.argv[1], sys.argv[2])
+    main()

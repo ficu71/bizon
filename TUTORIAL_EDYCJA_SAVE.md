@@ -1,112 +1,68 @@
-# 🎮 Tutorial: Edycja Save'ów Naheulbeuk
+# 🎮 Tutorial: Edycja Save'ów Naheulbeuk (Bezpieczna)
 
 Poradnik krok po kroku jak zmienić złoto i punkty umiejętności w *The Dungeon of Naheulbeuk*.
+
+> [!IMPORTANT]
+> **Nowa wersja skryptów (v2)** wprowadza zabezpieczenia. Musisz podać **aktualną wartość**, którą widzi Twoja postać w grze, aby skrypt wiedział dokładnie, który rekord edytować.
 
 ---
 
 ## 📋 Wymagania
 
 - Python 3 (zainstalowany na Mac/Windows/Linux)
-- Pliki `patch_gold.py` i `patch_perks.py` z repozytorium
+- Pliki `patch_gold.py`, `patch_perks.py` i `naheulbeuk_patch.py` z repozytorium
 
 ---
 
 ## 🪙 Zmiana ilości złota
 
-### Krok 1: Znajdź swój plik save
+### Krok 1-2: Znajdź plik i spisz stan
 
-**Na Mac:**
+Sprawdź w grze, ile **dokładnie** masz złota przed edycją (np. 500). Zrób kopię zapasową pliku `.sav`.
 
-```text
-~/Library/Application Support/Artefacts Studio/Naheulbeuk/Save/
-```
+### Krok 3: Uruchom skrypt z flagą `--current`
 
-lub
-
-```text
-~/Library/Application Support/Save/
-```
-
-**Na Windows:**
-
-```text
-%USERPROFILE%\AppData\LocalLow\Artefacts Studio\Naheulbeuk\Save\
-```
-
-Szukaj plików typu `Game_*.sav` (np. `Game_fcu_fcusav.sav`).
-
-### Krok 2: Zrób kopię zapasową
-
-**WAŻNE: Zawsze rób backup przed edycją!**
-
-```bash
-cp "Game_fcu_fcusav.sav" "Game_fcu_fcusav.sav.backup"
-```
-
-### Krok 3: Uruchom skrypt
-
-Otwórz Terminal (Mac) lub PowerShell (Windows) i przejdź do folderu z repozytorium:
+Przejdź do folderu z repozytorium:
 
 ```bash
 cd /Users/f1cu_71/Desktop/biz/bizon
 ```
 
-Uruchom skrypt z dwoma argumentami:
+Uruchom skrypt podając:
 
-1. Ścieżka do pliku save
-2. Nowa ilość złota
-
-```bash
-python3 patch_gold.py "/sciezka/do/Game_fcu_fcusav.sav" 999999
-```
-
-**Przykład z pełną ścieżką na Mac:**
+1. Ścieżkę do save'a
+2. Nową ilość złota
+3. **`--current <ile_masz_teraz>`** (Zabezpieczenie przed edycją innych wartości)
 
 ```bash
-python3 patch_gold.py ~/Library/Application\ Support/Save/Game_fcu_fcusav.sav 999999
+python3 patch_gold.py "Game_fcu_fcusav.sav" 999999 --current 500
 ```
-
-### Krok 4: Sprawdź output
-
-Powinieneś zobaczyć coś takiego:
-
-```text
-Found compressed payload at offset 0x12DE4
-Decompressed 5456956 bytes.
-Patched 'm_gold' at 0x149522 (Old value: 500)
-...
-Patched 26 instances of 'm_gold' in decompressed data.
-Successfully created patched save: .../Game_fcu_fcusav.sav.patched
-```
-
-### Krok 5: Podmień plik
-
-1. Przenieś oryginalny plik do bezpiecznego miejsca (backup)
-2. Zmień nazwę `.patched` na oryginalną:
-
-```bash
-mv "Game_fcu_fcusav.sav.patched" "Game_fcu_fcusav.sav"
-```
-
-### Krok 6: Uruchom grę
-
-Załaduj save w grze - powinieneś mieć nową ilość złota! 💰
 
 ---
 
 ## ⚔️ Zmiana punktów umiejętności
 
-Proces jest identyczny, tylko używasz innego skryptu:
+Dla perków musisz podać **trzy wartości** swojej wybranej postaci:
+
+1. Active Skill Points
+2. Passive Skill Points
+3. Stats Points
+
+**Przykład:** Postać ma 1 pkt aktywny, 2 pasywne i 3 statystyki.
 
 ```bash
-python3 patch_perks.py "/sciezka/do/Game_fcu_fcusav.sav" 99
+python3 patch_perks.py "Game_fcu_fcusav.sav" 99 --current-active 1 --current-passive 2 --current-stats 3
 ```
 
-To da ci **99 punktów** do:
+---
 
-- Active Skill Points (aktywne umiejętności)
-- Passive Skill Points (pasywne umiejętności)  
-- Stats Points (statystyki postaci)
+## ⚠️ Tryb Zaawansowany (`--mode all`)
+
+Jeśli chcesz zmienić wartość u **wszystkich** (np. wszystkim postaciom dać 99 perków na raz), użyj flagi `--mode all`. **Uwaga: Może uszkodzić save, jeśli w danych są inne liczby wyglądające jak punkty!**
+
+```bash
+python3 patch_gold.py "save.sav" 1000000 --mode all
+```
 
 ---
 
@@ -114,27 +70,23 @@ To da ci **99 punktów** do:
 
 | Problem | Rozwiązanie |
 | :--- | :--- |
-| `python3: command not found` | Zainstaluj Python 3 ze strony python.org |
-| `No such file or directory` | Sprawdź ścieżkę do pliku (użyj `ls` żeby zobaczyć zawartość folderu) |
-| `Could not find GZIP payload` | Plik może być uszkodzony lub to nie jest save z Naheulbeuk |
-| Gra nie widzi zmian | Upewnij się że zamieniłeś `.patched` na oryginalną nazwę |
+| `Multiple 'm_gold' fields found` | Masz kilka rekordów z tą samą wartością. Zmień ilość złota w grze i spróbuj ponownie. |
+| `No such file: naheulbeuk_patch` | Upewnij się, że plik `naheulbeuk_patch.py` jest w tym samym folderze. |
+| `Error: --current is required` | Od wersji v2 musisz podawać aktualną wartość dla bezpieczeństwa. |
 
 ---
 
 ## 🔥 Szybka ściąga
 
 ```bash
-# 1. Przejdź do folderu z narzędziami
-cd /Users/f1cu_71/Desktop/biz/bizon
+# 1. Złoto: mam 500, chcę milion
+python3 patch_gold.py "SAVE.sav" 1000000 --current 500
 
-# 2. Złoto na 999999
-python3 patch_gold.py "TWOJ_SAVE.sav" 999999
+# 2. Perki: mam postać 1,2,3 chcę 99 u niej
+python3 patch_perks.py "SAVE.sav" 99 --current-active 1 --current-passive 2 --current-stats 3
 
-# 3. Perki na 99
-python3 patch_perks.py "TWOJ_SAVE.sav" 99
-
-# 4. Podmień plik
-mv "TWOJ_SAVE.sav.patched" "TWOJ_SAVE.sav"
+# 3. Podmiana
+mv "SAVE.sav.patched" "SAVE.sav"
 ```
 
 Gotowe! 🎉

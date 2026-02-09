@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIZON SAVE DESTROYER 3000 | Save Hacking Reimagined</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --neon-green: #39ff14;
+            --bg-deep: #050505;
+            --card-bg: rgba(20, 20, 25, 0.8);
+            --glitch-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(rgba(18, 16, 16, 0.5) 50%, rgba(0, 0, 0, 0.75) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 100%, 100% 2px, 3px 100%;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Glitch Effect Typography */
+        .glitch {
+            position: relative;
+            font-size: 4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            animation: glitch 500ms infinite;
+        }
+
+        .glitch span {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+
+            14% {
+                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+
+            15% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+
+            49% {
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+
+            50% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+
+            99% {
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+
+            100% {
+                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+            }
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .header-subtext {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 600px;
+            margin-top: 1rem;
+        }
+
+        .hero-img {
+            max-width: 600px;
+            width: 90%;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+            border-radius: 20px;
+            transform: perspective(1000px) rotateX(10deg);
+            transition: 0.5s;
+        }
+
+        header:hover .hero-img {
+            transform: perspective(1000px) rotateX(0deg);
+            filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.5));
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-action {
+            background: rgba(255, 0, 255, 0.02);
+            border-radius: 30px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--neon-pink);
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.2);
+        }
+
+        .card h3 {
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .code-block {
+            background: #000;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--neon-green);
+            margin: 2rem 0;
+            border-left: 4px solid var(--neon-green);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: "TERMINAL OUTPUT";
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 0.7rem;
+            background: var(--neon-green);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2px;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 2rem;
+        }
+
+        .cta-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        .cta-btn-green {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .cta-btn-green:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 10px var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        .footer-details {
+            margin-top: 10px;
+        }
+
+        .domain-highlight {
+            color: var(--neon-blue);
+        }
+
+        .action-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .tag {
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--neon-blue);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        img.demo-content {
+            width: 100%;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .glitch {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="https://raw.githubusercontent.com/ficu71/bizon/main2/gui-web/public/hero.png" alt="Bizon Destroyer"
+            class="hero-img" onerror="this.src='https://placehold.co/600x400/000/ff00ff?text=BIZON+SAVE+DESTROYER'">
+        <h1 class="glitch">BIZON DESTROYER</h1>
+        <p class="header-subtext">
+            Zaawansowane narzędzie do edycji save'ów Unity. Szybkie, bezpieczne i absolutnie bezlitosne dla balansu gry.
+        </p>
+        <a href="https://github.com/ficu71/bizon" class="cta-btn">View on GitHub</a>
+    </header>
+
+    <div class="container" id="features">
+        <h2 class="section-title">Technologia Chaosu</h2>
+        <div class="grid">
+            <div class="card">
+                <span class="tag">NAHEULBEUK</span>
+                <h3>Patcher v2</h3>
+                <p>Nowy silnik wspierający precyzyjną dekompresję GZIP i obsługę trailing data. Bezpośrednie uderzenie w
+                    strukturę save'a.</p>
+                <img src="https://raw.githubusercontent.com/ficu71/bizon/main2/gui-web/public/card1.png" alt="Patcher"
+                    class="demo-content" onerror="this.style.display='none'">
+            </div>
+            <div class="card">
+                <span class="tag">SAFETY</span>
+                <h3>Smart Matching</h3>
+                <p>Nigdy nie patchuj w ciemno. System wymaga podania aktualnej wartości, aby zidentyfikować rekord
+                    gracza wśród NPC.</p>
+                <img src="https://raw.githubusercontent.com/ficu71/bizon/main2/gui-web/public/card2.png" alt="Safety"
+                    class="demo-content" onerror="this.style.display='none'">
+            </div>
+            <div class="card">
+                <span class="tag">ADVANCED</span>
+                <h3>UESE Engine</h3>
+                <p>Algorytm scoringowy omijający regiony o wysokiej entropii i dane PNG. Reverse engineering bez
+                    wychodzenia z terminala.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container section-action">
+        <h2 class="section-title">Szybka Akcja</h2>
+        <p class="action-container">Wszystko, czego potrzebujesz, to Python 3 i ochota na złamanie zasad.</p>
+
+        <div class="code-block">
+            # 1. Mam 500 złota, chcę MILION<br>
+            python3 patch_gold.py "save.sav" 1000000 --current 500<br><br>
+            # 2. Moja postać ma 1, 1, 1 pkt umiejętności. Daj mi po 99.<br>
+            python3 patch_perks.py "save.sav" 99 --current-active 1 --current-passive 2 --current-stats 1
+        </div>
+
+        <div class="action-container">
+            <p><span class="status-dot"></span> System gotowy do pracy lokalnej. Pobierz repozytorium i ruszaj.</p>
+            <a href="https://github.com/ficu71/bizon/archive/refs/heads/main2.zip"
+                class="cta-btn cta-btn-green">Download .ZIP</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 BIZON INDUSTRIES - WE BREAK WHAT OTHERS BUILD</p>
+        <div class="footer-details">Domain mapped to: <span class="domain-highlight">kombajn.f1cu.space</span></div>
+    </footer>
+
+</body>
+
+</html>
