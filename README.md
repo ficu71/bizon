@@ -88,7 +88,7 @@ Developed with ❤️ for the bizon community. (C) 20XX BIZON INDUSTRIES
 
 ---
 
-# 🇵🇱 Wersja Polska (Original save-kombajn)
+## 🇵🇱 Wersja Polska (Original save-kombajn)
 
 Lokalne narzędzie (Python stdlib) do **diff-based reverse engineeringu** binarnych save'ów Unity / Assembly-CSharp.
 
