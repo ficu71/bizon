@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIZON SAVE DESTROYER 3000 | Save Hacking Reimagined</title>
+    <title>BIZON SAVE DESTROYER 3000 | Ultra-Hacker Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=VT323&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --neon-pink: #ff00ff;
             --neon-blue: #00ffff;
             --neon-green: #39ff14;
             --bg-deep: #050505;
-            --card-bg: rgba(20, 20, 25, 0.8);
-            --glitch-speed: 0.3s;
+            --window-bg: #f5f5f5;
+            --title-bg: linear-gradient(90deg, #ff00ff, #00ffff);
+            --rainbow-border: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
         }
 
         * {
@@ -27,271 +29,332 @@
         body {
             background-color: var(--bg-deep);
             background-image:
-                radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.05) 0%, transparent 50%),
-                linear-gradient(rgba(18, 16, 16, 0.5) 50%, rgba(0, 0, 0, 0.75) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 100%, 100% 2px, 3px 100%;
-            color: #fff;
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 255, 0.1) 0%, transparent 80%),
+                url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            color: #333;
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
         }
 
-        /* Glitch Effect Typography */
-        .glitch {
+        /* Rainbow Border Container */
+        .window-outer {
+            padding: 10px;
+            background: var(--rainbow-border);
+            background-size: 400% 400%;
+            animation: rainbow-shift 5s linear infinite;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.4);
+            max-width: 1000px;
+            width: 100%;
             position: relative;
-            font-size: 4rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
-                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            animation: glitch 500ms infinite;
         }
 
-        .glitch span {
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        @keyframes glitch {
+        @keyframes rainbow-shift {
             0% {
-                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-
-            14% {
-                text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.05em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-
-            15% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-
-            49% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                background-position: 0% 50%;
             }
 
             50% {
-                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
-            }
-
-            99% {
-                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0 0 rgba(0, 255, 0, 0.75), 0 -0.05em 0 rgba(0, 0, 255, 0.75);
+                background-position: 100% 50%;
             }
 
             100% {
-                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+                background-position: 0% 50%;
             }
         }
 
-        header {
-            height: 100vh;
+        .window {
+            background: var(--window-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 4px solid #000;
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        /* Title Bar */
+        .title-bar {
+            background: #fff;
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #000;
+            font-weight: bold;
+        }
+
+        .title-text {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            background: var(--rainbow-border);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300%;
+            animation: rainbow-shift 3s linear infinite;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-win {
+            width: 25px;
+            height: 25px;
+            border: 2px solid #000;
+            background: #ddd;
+            display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 2rem;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Main Content Area */
+        .content {
+            padding: 30px;
+            background-image: radial-gradient(#ccc 1px, transparent 1px);
+            background-size: 20px 20px;
             position: relative;
+            min-height: 600px;
         }
 
-        .header-subtext {
-            font-size: 1.2rem;
-            color: #888;
-            max-width: 600px;
-            margin-top: 1rem;
-        }
-
-        .hero-img {
-            max-width: 600px;
-            width: 90%;
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
-            border-radius: 20px;
-            transform: perspective(1000px) rotateX(10deg);
-            transition: 0.5s;
-        }
-
-        header:hover .hero-img {
-            transform: perspective(1000px) rotateX(0deg);
-            filter: drop-shadow(0 0 40px rgba(255, 0, 255, 0.5));
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .section-action {
-            background: rgba(255, 0, 255, 0.02);
-            border-radius: 30px;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+        /* Hero Text Area */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            color: var(--neon-blue);
-            text-transform: uppercase;
-            letter-spacing: 5px;
+            margin-bottom: 40px;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+        .berronned {
+            font-family: 'VT323', monospace;
+            font-size: 8rem;
+            color: #000;
+            line-height: 0.8;
+            letter-spacing: -5px;
             position: relative;
-            overflow: hidden;
+            animation: text-glitch 1s infinite;
         }
 
-        .card:hover {
-            border-color: var(--neon-pink);
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(255, 0, 255, 0.2);
+        @keyframes text-glitch {
+            0% {
+                transform: skew(0deg);
+            }
+
+            10% {
+                transform: skew(2deg) scaleY(1.1);
+            }
+
+            20% {
+                transform: skew(-2deg);
+            }
+
+            30% {
+                transform: skew(1deg) scaleY(0.9);
+            }
+
+            100% {
+                transform: skew(0deg);
+            }
         }
 
-        .card h3 {
-            color: var(--neon-pink);
-            margin-bottom: 1rem;
+        .stats {
+            background: #fff;
+            border: 3px solid #000;
+            padding: 20px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 500px;
+            font-weight: 700;
             font-size: 1.5rem;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .val-glitch {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 1rem;
+            margin-right: 10px;
+        }
+
+        /* Buttons */
+        .break-btn {
+            background: var(--rainbow-border);
+            background-size: 300%;
+            padding: 15px 40px;
+            border: 4px solid #000;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 2rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 #000;
+            transition: 0.1s;
+            margin: 20px 0;
+            animation: rainbow-shift 2s infinite;
+        }
+
+        .break-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 4px 4px 0 #000;
+        }
+
+        /* Stickers and Junk */
+        .junk {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floppy {
+            font-size: 5rem;
+            top: 50px;
+            left: 30px;
+            transform: rotate(-15deg);
+        }
+
+        .floppy-broken {
+            font-size: 6rem;
+            top: 150px;
+            left: 150px;
+            transform: rotate(10deg) scaleX(-1);
+            opacity: 0.8;
+        }
+
+        .coin {
+            font-size: 2rem;
+            position: absolute;
+        }
+
+        .warning {
+            font-size: 3rem;
+            top: 40px;
+            right: 80px;
+        }
+
+        .explosion {
+            font-size: 4rem;
+            position: absolute;
+        }
+
+        .sticker {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 10px 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: absolute;
+            box-shadow: 4px 4px 0 #333;
+        }
+
+        .stick1 {
+            bottom: 100px;
+            left: 50px;
+            transform: rotate(-3deg);
+            color: #d00;
+        }
+
+        .stick2 {
+            bottom: 50px;
+            right: 50px;
+            transform: rotate(2deg);
+            background: #222;
+            color: #fff;
+        }
+
+        .stick3 {
+            bottom: 120px;
+            right: 100px;
+            transform: rotate(-5deg);
+            background: var(--title-bg);
+            color: #fff;
+        }
+
+        /* Documentation Area (The README) */
+        .readme-container {
+            margin-top: 50px;
+            background: #fff;
+            border: 4px solid #000;
+            padding: 40px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .readme-container h2 {
+            border-bottom: 4px solid #ff00ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .readme-container code {
+            background: #000;
+            color: var(--neon-green);
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .code-block {
             background: #000;
-            padding: 1.5rem;
-            border-radius: 10px;
-            font-family: 'Courier New', Courier, monospace;
             color: var(--neon-green);
-            margin: 2rem 0;
-            border-left: 4px solid var(--neon-green);
-            position: relative;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+            line-height: 1.4;
         }
 
-        .code-block::before {
-            content: "TERMINAL OUTPUT";
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            font-size: 0.7rem;
-            background: var(--neon-green);
-            color: #000;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background: transparent;
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-blue);
-            text-decoration: none;
-            text-transform: uppercase;
+        .alert-box {
+            background: #fff0f0;
+            border: 2px dashed #ff0000;
+            padding: 20px;
+            margin: 20px 0;
             font-weight: bold;
-            letter-spacing: 2px;
-            border-radius: 5px;
-            transition: 0.3s;
-            margin-top: 2rem;
-        }
-
-        .cta-btn:hover {
-            background: var(--neon-blue);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-blue);
-        }
-
-        .cta-btn-green {
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-        }
-
-        .cta-btn-green:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-green);
+            color: #ff0000;
         }
 
         footer {
-            text-align: center;
-            padding: 4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
+            margin-top: 50px;
             color: #666;
-        }
-
-        .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background: var(--neon-green);
-            border-radius: 50%;
-            margin-right: 10px;
-            box-shadow: 0 0 10px var(--neon-green);
-            animation: pulse 2s infinite;
-        }
-
-        .footer-details {
-            margin-top: 10px;
-        }
-
-        .domain-highlight {
-            color: var(--neon-blue);
-        }
-
-        .action-container {
             text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.3;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        .tag {
-            background: rgba(0, 255, 255, 0.1);
-            color: var(--neon-blue);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 10px;
-        }
-
-        img.demo-content {
-            width: 100%;
-            border-radius: 10px;
-            margin: 1rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
         }
 
         @media (max-width: 768px) {
-            .glitch {
-                font-size: 2.5rem;
+            .berronned {
+                font-size: 4rem;
             }
 
-            .section-title {
-                font-size: 1.8rem;
+            .content {
+                padding: 15px;
+            }
+
+            .floppy,
+            .warning {
+                display: none;
             }
         }
     </style>
@@ -299,65 +362,111 @@
 
 <body>
 
-    <header>
-        <img src="https://raw.githubusercontent.com/ficu71/bizon/main2/gui-web/public/hero.png" alt="Bizon Destroyer"
-            class="hero-img" onerror="this.src='https://placehold.co/600x400/000/ff00ff?text=BIZON+SAVE+DESTROYER'">
-        <h1 class="glitch">BIZON DESTROYER</h1>
-        <p class="header-subtext">
-            Zaawansowane narzędzie do edycji save'ów Unity. Szybkie, bezpieczne i absolutnie bezlitosne dla balansu gry.
-        </p>
-        <a href="https://github.com/ficu71/bizon" class="cta-btn">View on GitHub</a>
-    </header>
-
-    <div class="container" id="features">
-        <h2 class="section-title">Technologia Chaosu</h2>
-        <div class="grid">
-            <div class="card">
-                <span class="tag">NAHEULBEUK</span>
-                <h3>Patcher v2</h3>
-                <p>Nowy silnik wspierający precyzyjną dekompresję GZIP i obsługę trailing data. Bezpośrednie uderzenie w
-                    strukturę save'a.</p>
-                <img src="https://raw.githubusercontent.com/ficu71/bizon/main2/gui-web/public/card1.png" alt="Patcher"
-                    class="demo-content" onerror="this.style.display='none'">
+    <div class="window-outer">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-text">
+                    🦬 BIZON SAVE DESTROYER 3000⚡
+                </div>
+                <div class="window-controls">
+                    <div class="btn-win">_</div>
+                    <div class="btn-win">□</div>
+                    <div class="btn-win" style="background: #ff5555;">X</div>
+                </div>
             </div>
-            <div class="card">
-                <span class="tag">SAFETY</span>
-                <h3>Smart Matching</h3>
-                <p>Nigdy nie patchuj w ciemno. System wymaga podania aktualnej wartości, aby zidentyfikować rekord
-                    gracza wśród NPC.</p>
-                <img src="https://raw.githubusercontent.com/ficu71/bizon/main2/gui-web/public/card2.png" alt="Safety"
-                    class="demo-content" onerror="this.style.display='none'">
+
+            <div class="content">
+                <!-- Decorations -->
+                <div class="junk floppy">💾</div>
+                <div class="junk floppy-broken">💾</div>
+                <div class="junk warning">⚠️</div>
+                <div class="junk" style="top: 250px; right: 30px; font-size: 3rem;">💸</div>
+                <div class="junk" style="top: 350px; left: 100px; font-size: 2rem;">💥</div>
+                <div class="junk" style="top: 80px; left: 300px; font-size: 1.5rem;">🪙</div>
+                <div class="junk" style="top: 400px; right: 200px; font-size: 2rem;">❌</div>
+
+                <div class="hero">
+                    <div class="berronned">BIZONNED</div>
+
+                    <div class="stats">
+                        <div class="stat-line">
+                            <span>Gold:</span>
+                            <span><span class="val-glitch">500</span> 999,999 (LOL)</span>
+                        </div>
+                        <div class="stat-line">
+                            <span>Health:</span>
+                            <span>∞ (Invincible)</span>
+                        </div>
+                        <div class="stat-line">
+                            <span>Ammo:</span>
+                            <span>YES</span>
+                        </div>
+                    </div>
+
+                    <button class="break-btn">BREAK THE GAME</button>
+
+                    <div style="font-weight: bold; font-size: 1.2rem; color: #444;">
+                        Achievement Unlocked: <br>
+                        🏆 <span style="text-decoration: underline;">Stonks Master</span>
+                    </div>
+                </div>
+
+                <div class="sticker stick1">
+                    ❌ Reality.exe has stopped working
+                </div>
+                <div class="sticker stick3">
+                    🏆 Achievement: Too OP
+                </div>
+                <div class="sticker stick2">
+                    💀 Save File Terrorist
+                </div>
+
+                <!-- Documentation (README) -->
+                <div class="readme-container">
+                    <h2>🚀 Documentation & Manual</h2>
+
+                    <p>Zaawansowane narzędzie do edycji save'ów Unity, stworzone by siać chaos w statystykach. Nie tylko
+                        edytor, ale <strong>kombajn do reverse engineeringu</strong>.</p>
+
+                    <h3 style="margin-top:20px;">🎨 KOZACKIE GUI (v2)</h3>
+                    <p>Dla najlepszych wrażeń użyj naszego nowoczesnego, neonowego interfejsu (dostępnego lokalnie).</p>
+
+                    <h3 style="margin-top:20px;">💻 CLI (HARDCORE MODE)</h3>
+                    <p>Skrypty v2 z wbudowanymi bezpiecznikami. Używaj flagi <code>--current</code> dla własnego
+                        bezpieczeństwa.</p>
+
+                    <h4 style="margin-top:10px;">🪙 ZŁOTO:</h4>
+                    <div class="code-block">
+                        python3 patch_gold.py "SAVE.sav" 999999 --current 500
+                    </div>
+
+                    <h4 style="margin-top:10px;">⚔️ PERKI:</h4>
+                    <div class="code-block">
+                        python3 patch_perks.py "SAVE.sav" 99 --current-active 1 --current-passive 2 --current-stats 3
+                    </div>
+
+                    <h3 style="margin-top:20px;">🧠 TECHNOLOGIA</h3>
+                    <ul>
+                        <li>🧬 <strong>Heurystyki:</strong> Filtrowanie PNG i regionów zaszyfrowanych.</li>
+                        <li>🧬 <strong>Smart Matching:</strong> Precyzyjna lokalizacja rekordu gracza.</li>
+                        <li>🧬 <strong>Precyzja:</strong> Zachowanie integralności kontenera GZIP.</li>
+                    </ul>
+
+                    <div class="alert-box">
+                        ⚠️ GAME BALANCE DESTROYED: Użycie tego narzędzia nieodwracalnie zaburza balans rozgrywki. Backup
+                        Twoich save'ów jest tworzony automatycznie (.patched).
+                    </div>
+
+                    <p style="text-align:center; font-weight:bold; margin-top:30px;">
+                        Deployed to: <span style="color:var(--neon-blue);">kombajn.f1cu.space</span>
+                    </p>
+                </div>
             </div>
-            <div class="card">
-                <span class="tag">ADVANCED</span>
-                <h3>UESE Engine</h3>
-                <p>Algorytm scoringowy omijający regiony o wysokiej entropii i dane PNG. Reverse engineering bez
-                    wychodzenia z terminala.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="container section-action">
-        <h2 class="section-title">Szybka Akcja</h2>
-        <p class="action-container">Wszystko, czego potrzebujesz, to Python 3 i ochota na złamanie zasad.</p>
-
-        <div class="code-block">
-            # 1. Mam 500 złota, chcę MILION<br>
-            python3 patch_gold.py "save.sav" 1000000 --current 500<br><br>
-            # 2. Moja postać ma 1, 1, 1 pkt umiejętności. Daj mi po 99.<br>
-            python3 patch_perks.py "save.sav" 99 --current-active 1 --current-passive 2 --current-stats 1
-        </div>
-
-        <div class="action-container">
-            <p><span class="status-dot"></span> System gotowy do pracy lokalnej. Pobierz repozytorium i ruszaj.</p>
-            <a href="https://github.com/ficu71/bizon/archive/refs/heads/main2.zip"
-                class="cta-btn cta-btn-green">Download .ZIP</a>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 BIZON INDUSTRIES - WE BREAK WHAT OTHERS BUILD</p>
-        <div class="footer-details">Domain mapped to: <span class="domain-highlight">kombajn.f1cu.space</span></div>
+        &copy; 2026 BIZON INDUSTRIES - WE BREAK WHAT OTHERS BUILD
     </footer>
 
 </body>
