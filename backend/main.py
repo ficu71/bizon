@@ -5,6 +5,8 @@ from pydantic import BaseModel
 from typing import List, Optional, Tuple
 from pathlib import Path
 import os
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from uese.core.universal_scanner import UniversalScanner, ScanCandidate
 from uese.core.patch_engine import PatchEngine
@@ -24,6 +26,9 @@ app.add_middleware(
 scanner = UniversalScanner()
 patcher = PatchEngine()
 profile_manager = ProfileManager()
+
+# Build path for frontend
+frontend_path = Path(__file__).parent.parent / "gui-web" / "dist"
 
 class ScanRequest(BaseModel):
     saves: List[str]
@@ -110,6 +115,16 @@ async def list_files(path: str = ".", pattern: str = "*"):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# Serve static files from the frontend build
+if frontend_path.exists():
+    app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="static")
+
+    @app.exception_handler(404)
+    async def spa_exception_handler(request, exc):
+        return FileResponse(frontend_path / "index.html")
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Use 8080 as standard container port, 8000 for local dev
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

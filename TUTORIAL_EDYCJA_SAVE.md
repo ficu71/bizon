@@ -17,19 +17,19 @@ Poradnik krok po kroku jak zmienić złoto i punkty umiejętności w *The Dungeo
 
 **Na Mac:**
 
-```
+```text
 ~/Library/Application Support/Artefacts Studio/Naheulbeuk/Save/
 ```
 
 lub
 
-```
+```text
 ~/Library/Application Support/Save/
 ```
 
 **Na Windows:**
 
-```
+```text
 %USERPROFILE%\AppData\LocalLow\Artefacts Studio\Naheulbeuk\Save\
 ```
 
@@ -70,7 +70,7 @@ python3 patch_gold.py ~/Library/Application\ Support/Save/Game_fcu_fcusav.sav 99
 
 Powinieneś zobaczyć coś takiego:
 
-```
+```text
 Found compressed payload at offset 0x12DE4
 Decompressed 5456956 bytes.
 Patched 'm_gold' at 0x149522 (Old value: 500)
@@ -113,7 +113,7 @@ To da ci **99 punktów** do:
 ## ❓ Rozwiązywanie problemów
 
 | Problem | Rozwiązanie |
-|---------|-------------|
+| :--- | :--- |
 | `python3: command not found` | Zainstaluj Python 3 ze strony python.org |
 | `No such file or directory` | Sprawdź ścieżkę do pliku (użyj `ls` żeby zobaczyć zawartość folderu) |
 | `Could not find GZIP payload` | Plik może być uszkodzony lub to nie jest save z Naheulbeuk |
