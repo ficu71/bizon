@@ -1,4 +1,13 @@
-# 🚀 BIZON SAVE DESTROYER 3000
+# 🚀 SEJW-KOMBAJN / BIZON SAVE DESTROYER 3000
+
+```text
+   _____ ______Sl__          __  __  ____  __  __ ____           _  _   _ 
+  / ____|  ____\ \ \        / / |  |/ __ \|  \/  |  _ \   /\   | || | | |
+ | (___ | |__   \ \ \  /\  / /  |  | |  | | \  / | |_) / /  \  | || |_| |
+  \___ \|  __|   \ \ \/  \/ /   |  | |  | | |\/| |  _ < / /\ \ |__   _| |
+  ____) | |____   \ \  /\  /    |  | |__| | |  | | |_) / ____ \   | | |_|
+ |_____/|______|   \ \/  \/     |__| \____/|_|  |_|____/_/    \_\  |_| (_)
+```
 
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![UI Style](https://img.shields.io/badge/style-Save--Hacker-ff00ff.svg)](https://github.com/ficu71/bizon)
@@ -90,7 +99,7 @@ Developed with ❤️ for the bizon community. (C) 20XX BIZON INDUSTRIES
 
 ---
 
-# 🇵🇱 Wersja Polska (Original save-kombajn)
+## 🇵🇱 Wersja Polska (Original save-kombajn)
 
 Lokalne narzędzie (Python stdlib) do **diff-based reverse engineeringu** binarnych save'ów Unity / Assembly-CSharp.
 
