@@ -44,6 +44,21 @@ python3 patch_gold.py "SAVE.sav" 999999 --current 500
 python3 patch_perks.py "SAVE.sav" 99 --current-active 1 --current-passive 2 --current-stats 3
 ```
 
+### 📈 STATYSTYKI POSTACI
+
+```bash
+# 1) Podejrzyj sloty postaci i ich staty
+python3 patch_stats.py "SAVE.sav" --list-slots
+
+# 2) Patch jednej postaci (bezpiecznie: wymagane --current-* dla patchowanych statów)
+python3 patch_stats.py "SAVE.sav" --slot 1 \
+  --agility 20 --strength 20 --constitution 20 --intelligence 20 --courage 20 --charisma 20 \
+  --current-agility 10 --current-strength 11 --current-constitution 12 --current-intelligence 7 --current-courage 8 --current-charisma 7
+
+# 3) Tryb masowy (ryzykowny)
+python3 patch_stats.py "SAVE.sav" --mode all --courage 99
+```
+
 ---
 
 ## 🧠 NAUKA O DESTRUKCJI
@@ -52,6 +67,7 @@ Projekt wykorzystuje autorski silnik **UESE** i wspólny rdzeń **Naheulbeuk Pat
 
 - 🧬 **Heurystyki**: Automatyczne omijanie danych PNG i regionów o wysokiej entropii (zaszyfrowanych).
 - 🧬 **Smart Matching**: Wymóg podania `--current` eliminuje ryzyko uszkodzenia rekordów NPC.
+- 🧬 **Slot-based Stats Patching**: `patch_stats.py` wykrywa kompletne sloty, weryfikuje `--current-*` i patchuje tylko `m_value`.
 - 🧬 **Precyzja**: Obsługa `trailing bytes` – save po patchu zachowuje 100% integralności struktury.
 
 ---
