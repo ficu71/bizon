@@ -8,6 +8,8 @@
 
 Zaawansowane narzędzie do edycji save'ów Unity, stworzone by siać chaos w statystykach. Nie tylko edytor, ale **kombajn do reverse engineeringu**.
 
+📘 **Kompletny przewodnik (wszystkie komendy)**: [`GUIDE_KOMPLETNY.md`](GUIDE_KOMPLETNY.md)
+
 ---
 
 ## 🎨 KOZACKIE GUI (v2)
