@@ -1,17 +1,33 @@
 # Python
 __pycache__/
 *.pyc
+.roo/
+.vscode/
 
 # Save Kombajn output / artefakty
 output/
 *.bak
 *.patched.sav
+firebase-debug.log
+
+# Local save workspace
+save do analizy/*.sav
+save do analizy/*.bin
+save do analizy/*.patched
+save do analizy/*.patched.*
+save do analizy/*.decompressed_*.bin
+save do analizy/* 2
 
 # Przykładowe wygenerowane save'y
 examples/*.sav
 
 # Web
+.npm-cache/
 gui-web/node_modules/
 gui-web/dist/
 gui-web/.env
+gui-web/.npm-cache/
+
+# Local reverse-engineering artifacts
+research/artifacts/
 .DS_Store

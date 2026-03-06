@@ -1,42 +1,339 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.character-selector {
+  border: 1px solid rgba(53, 243, 255, 0.28);
+  border-radius: 14px;
+  background: linear-gradient(160deg, rgba(10, 12, 28, 0.84), rgba(16, 18, 37, 0.7));
+  padding: 0.7rem;
   display: flex;
   flex-direction: column;
+  gap: 0.55rem;
+  position: relative;
+}
+
+.character-selector::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border: 1px solid rgba(255, 43, 214, 0.18);
+  clip-path: polygon(0 6px, 6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+.character-selector-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.character-selector-label {
+  font-size: 0.68rem;
+  color: #a8b7d6;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.character-selector-count {
+  font-size: 0.74rem;
+}
+
+.character-selector-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.character-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.character-filter-chip {
+  min-width: auto;
+  padding: 0.34rem 0.56rem;
+  font-size: 0.72rem;
+}
+
+.character-filter-chip-active {
+  box-shadow: 0 0 16px rgba(53, 243, 255, 0.24);
+}
+
+.character-chip {
+  min-width: 118px;
+  font-size: 0.78rem;
+  padding: 0.44rem 0.72rem;
+  border-color: rgba(53, 243, 255, 0.34);
+  background: rgba(11, 10, 26, 0.72);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.18rem;
+  text-align: left;
+}
+
+.character-chip-active {
+  box-shadow:
+    0 0 0 1px rgba(53, 243, 255, 0.45),
+    0 0 16px rgba(53, 243, 255, 0.24),
+    0 0 18px rgba(255, 43, 214, 0.2);
+}
+
+.character-chip-title {
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.character-chip-meta {
+  font-size: 0.66rem;
+  opacity: 0.82;
+}
+
+.semantic-toolbar,
+.semantic-record-head,
+.semantic-queue-head,
+.semantic-economy-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.semantic-toolbar-copy {
+  min-width: 240px;
+  flex: 1;
+}
+
+.semantic-toolbar-actions,
+.workflow-toolbar,
+.workflow-actions,
+.workflow-side-metrics {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.workflow-toolbar {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workflow-copy {
+  min-width: 240px;
+  flex: 1;
+}
+
+.workflow-status {
+  border-radius: 14px;
+  border: 1px solid rgba(53, 243, 255, 0.24);
+  background: rgba(7, 12, 24, 0.62);
+  padding: 0.8rem;
+}
+
+.workflow-status-ready {
+  border-color: rgba(158, 255, 210, 0.28);
+  background: rgba(31, 132, 88, 0.12);
+}
+
+.workflow-status-degraded {
+  border-color: rgba(255, 213, 107, 0.22);
+  background: rgba(255, 213, 107, 0.08);
+}
+
+.workflow-status-title {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+}
+
+.workflow-warning-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.semantic-target-path {
+  margin: 0.1rem 0 0;
+  word-break: break-all;
+}
+
+.semantic-warning-stack,
+.semantic-field-stack,
+.semantic-queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.semantic-warning-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(255, 209, 102, 0.26);
+  border-radius: 12px;
+  background: rgba(255, 209, 102, 0.08);
+  color: #ffe7a0;
+}
+
+.semantic-record-card,
+.semantic-group-card {
+  border: 1px solid rgba(53, 243, 255, 0.18);
+  border-radius: 16px;
+  background: linear-gradient(165deg, rgba(8, 10, 24, 0.86), rgba(17, 19, 36, 0.74));
+  padding: 0.9rem;
+}
+
+.semantic-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.85rem;
+}
+
+.semantic-group-card h4,
+.semantic-record-card h3 {
+  margin: 0;
+}
+
+.semantic-field-row {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 0.7rem;
+  background: rgba(7, 9, 19, 0.54);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.semantic-field-head,
+.semantic-field-meta,
+.semantic-field-actions,
+.semantic-field-badges,
+.semantic-record-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.semantic-field-head {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.semantic-field-label {
+  margin: 0;
+  font-weight: 700;
+}
+
+.semantic-field-source,
+.semantic-field-notes,
+.semantic-consent-row,
+.semantic-empty,
+.semantic-warning-row p,
+.semantic-record-head p {
+  margin: 0;
+}
+
+.semantic-consent-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.semantic-consent-row input {
+  accent-color: #35f3ff;
+}
+
+.semantic-field-actions .field {
+  min-width: 140px;
+  flex: 1;
+}
+
+.workflow-side-panel .terminal-box {
+  min-height: 260px;
+}
+
+.semantic-badge {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  border-radius: 999px;
+  padding: 0.18rem 0.48rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.App-link {
-  color: #61dafb;
+.semantic-badge-resolved {
+  color: #9effd2;
+  border-color: rgba(158, 255, 210, 0.26);
+  background: rgba(31, 132, 88, 0.18);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.semantic-badge-ambiguous {
+  color: #ffd56b;
+  border-color: rgba(255, 213, 107, 0.22);
+  background: rgba(255, 213, 107, 0.12);
+}
+
+.semantic-badge-unresolved {
+  color: #ff8da2;
+  border-color: rgba(255, 141, 162, 0.24);
+  background: rgba(255, 90, 122, 0.14);
+}
+
+.semantic-badge-muted {
+  color: #9aa8c7;
+  border-color: rgba(154, 168, 199, 0.18);
+  background: rgba(154, 168, 199, 0.08);
+}
+
+.semantic-economy-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.75rem;
+}
+
+.semantic-economy-row,
+.semantic-queue-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  background: rgba(8, 9, 19, 0.55);
+  padding: 0.75rem;
+}
+
+.semantic-economy-row .field {
+  max-width: 140px;
+}
+
+@media (max-width: 900px) {
+  .character-selector {
+    padding: 0.6rem;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-button {
-  font-size: calc(10px + 2vmin);
+  .character-chip {
+    min-width: 92px;
+    font-size: 0.75rem;
+    padding: 0.42rem 0.62rem;
+  }
+
+  .semantic-groups,
+  .semantic-economy-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .semantic-economy-row,
+  .semantic-queue-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

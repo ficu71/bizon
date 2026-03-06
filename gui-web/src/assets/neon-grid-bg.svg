@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="140" y1="0" x2="1080" y2="1200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#05030B"/>
+      <stop offset="0.55" stop-color="#0B0A1A"/>
+      <stop offset="1" stop-color="#101225"/>
+    </linearGradient>
+
+    <radialGradient id="blob-cyan" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 160) rotate(44) scale(460 340)">
+      <stop stop-color="#35F3FF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#35F3FF" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="blob-pink" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(960 220) rotate(164) scale(420 320)">
+      <stop stop-color="#FF2BD6" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FF2BD6" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="blob-purple" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 1020) rotate(90) scale(360 240)">
+      <stop stop-color="#9D4DFF" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#9D4DFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <pattern id="grid-cyan" width="36" height="36" patternUnits="userSpaceOnUse" patternTransform="translate(0 0)">
+      <path d="M36 0H0V36" stroke="#35F3FF" stroke-opacity="0.12" stroke-width="1"/>
+    </pattern>
+
+    <pattern id="grid-pink" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0H0V72" stroke="#FF2BD6" stroke-opacity="0.08" stroke-width="1"/>
+    </pattern>
+
+    <linearGradient id="glitch-line" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35F3FF" stop-opacity="0"/>
+      <stop offset="0.22" stop-color="#35F3FF" stop-opacity="0.42"/>
+      <stop offset="0.52" stop-color="#FF2BD6" stop-opacity="0.34"/>
+      <stop offset="0.8" stop-color="#FFD84D" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#FFD84D" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1200" fill="url(#bg)"/>
+  <rect width="1200" height="1200" fill="url(#blob-cyan)"/>
+  <rect width="1200" height="1200" fill="url(#blob-pink)"/>
+  <rect width="1200" height="1200" fill="url(#blob-purple)"/>
+  <rect width="1200" height="1200" fill="url(#grid-cyan)"/>
+  <rect width="1200" height="1200" fill="url(#grid-pink)"/>
+
+  <g opacity="0.45">
+    <rect x="0" y="178" width="1200" height="1" fill="url(#glitch-line)"/>
+    <rect x="0" y="412" width="1200" height="1" fill="url(#glitch-line)"/>
+    <rect x="0" y="811" width="1200" height="1" fill="url(#glitch-line)"/>
+  </g>
+</svg>

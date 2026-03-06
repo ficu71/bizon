@@ -1,90 +1,117 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
 import argparse
-import sys
-from naheulbeuk_patch import NaheulbeukSave
+from pathlib import Path
 
-def main():
-    parser = argparse.ArgumentParser(description="Patch perk points in Naheulbeuk save files with safety checks.")
-    parser.add_argument("save_file", help="Path to the .sav file")
-    parser.add_argument("new_amount", type=int, help="New points amount to set for all matched fields")
-    parser.add_argument("--mode", choices=["player", "all"], default="player", 
-                        help="DANGER: 'all' patches everything, 'player' (default) is safer.")
-    parser.add_argument("--current-active", type=int, help="Current active skill points")
-    parser.add_argument("--current-passive", type=int, help="Current passive skill points")
-    parser.add_argument("--current-stats", type=int, help="Current stats points")
-    parser.add_argument("--out", help="Output file path (default: <input>.perks.patched)")
-    parser.add_argument("--dry-run", action="store_true", help="Don't save changes, just show what would be done")
+from uese.core.gzip_field_patcher import (
+    list_field_hits_in_gzip_container,
+    patch_fields_in_gzip_container,
+)
 
+FIELD_MAP = {
+    "active": [b"m_activeSkillPoints"],
+    "passive": [b"m_passiveSkillPoints"],
+    "stats": [b"m_statsPoints"],
+    "all": [b"m_activeSkillPoints", b"m_passiveSkillPoints", b"m_statsPoints"],
+}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Patch Naheulbeuk perk/stat points in GZIP payload")
+    parser.add_argument("save_file", help="Path to input save file")
+    parser.add_argument("amount", nargs="?", type=int, help="New perk/stat value (uint32)")
+    parser.add_argument(
+        "--stat",
+        choices=["all", "active", "passive", "stats"],
+        default="all",
+        help="Which stat group to patch",
+    )
+    parser.add_argument("--output", help="Output file path (default: <save>.perks.patched)")
+    parser.add_argument(
+        "--max-hits",
+        type=int,
+        help="Patch at most N field occurrences total (default: all)",
+    )
+    parser.add_argument(
+        "--slot",
+        action="append",
+        type=int,
+        help="Patch only selected slot(s) from --list output (can be repeated)",
+    )
+    parser.add_argument(
+        "--character-slot",
+        action="append",
+        type=int,
+        help="Patch selected field_slot index (useful to target one character across fields)",
+    )
+    parser.add_argument(
+        "--list",
+        action="store_true",
+        help="List available slots for selected --stat and exit",
+    )
     args = parser.parse_args()
+    print(
+        "Deprecated expert helper: use `python3 -m uese naheulbeuk show-stats/patch` for semantic record editing; "
+        "`patch_perks.py` remains raw slot-based tooling only."
+    )
 
-    if args.mode == "player" and (args.current_active is None or args.current_passive is None or args.current_stats is None):
-        print("Error: --current-active, --current-passive, and --current-stats are required in 'player' mode.")
-        sys.exit(1)
+    save_path = Path(args.save_file)
+    output_path = Path(args.output) if args.output else save_path.with_suffix(save_path.suffix + ".perks.patched")
+    field_names = FIELD_MAP[args.stat]
+
+    if args.list:
+        try:
+            gzip_offset, hits = list_field_hits_in_gzip_container(
+                container_path=save_path,
+                field_names=field_names,
+                width=4,
+            )
+        except Exception as exc:
+            print(f"Error: {exc}")
+            return 1
+
+        print(f"Found compressed payload at offset 0x{gzip_offset:X}")
+        if not hits:
+            print("No matching perk/stat slots found.")
+            return 0
+
+        for hit in hits:
+            ctx = hit.context[:110]
+            print(
+                f"[slot={hit.slot:03d}] field={hit.field_name} value={hit.value} "
+                f"offset=0x{hit.field_offset:X} field_slot={hit.field_slot} ctx={ctx}"
+            )
+        return 0
+
+    if args.amount is None:
+        parser.error("amount is required unless --list is used")
 
     try:
-        save = NaheulbeukSave(args.save_file)
-        save.load()
-    except Exception as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+        patched_file, gzip_offset, hits = patch_fields_in_gzip_container(
+            container_path=save_path,
+            field_names=field_names,
+            value=args.amount,
+            width=4,
+            output_path=output_path,
+            max_hits=args.max_hits,
+            slots=args.slot,
+            field_slots=args.character_slot,
+        )
+    except Exception as exc:
+        print(f"Error: {exc}")
+        return 1
 
-    fields = [b'm_activeSkillPoints', b'm_passiveSkillPoints', b'm_statsPoints']
-    field_results = {f: save.find_fields(f) for f in fields}
+    print(f"Found compressed payload at offset 0x{gzip_offset:X}")
+    for hit in hits:
+        print(
+            f"Patched '{hit.field_name}' at 0x{hit.field_offset:X} "
+            f"[slot={hit.slot}, field_slot={hit.field_slot}] ({hit.old_value} -> {hit.new_value})"
+        )
+    print(f"Patched {len(hits)} perk/stat field(s).")
+    print(f"Created patched save: {patched_file}")
+    return 0
 
-    to_patch = []
-    if args.mode == "player":
-        # Group candidates by "entity" (assuming they appear close together or in order)
-        # For simplicity in Naheulbeuk, they usually belong to the same character record.
-        # However, the safer way is to find a unique triplet that matches user input.
-        
-        # We'll just look for any index where these three values appear in sequence or close.
-        # Actually, let's just find the character that matches ALL three current values.
-        # This is tricky because we don't have a formal "entity" parser.
-        # Simplified: find the first occurrence where current active matches, then check next fields.
-        
-        # Let's try a different approach: find all occurrences of m_activeSkillPoints that match current_active.
-        active_matches = [c for c in field_results[b'm_activeSkillPoints'] if c['current_value'] == args.current_active]
-        
-        matched_entities = []
-        for am in active_matches:
-            # Look for passive and stats points around this offset (Unity serialized fields are close)
-            # Find the closest passive points after this active points marker
-            pm = min([c for c in field_results[b'm_passiveSkillPoints'] if c['marker_offset'] > am['marker_offset']], 
-                     key=lambda x: x['marker_offset'] - am['marker_offset'], default=None)
-            sm = min([c for c in field_results[b'm_statsPoints'] if c['marker_offset'] > am['marker_offset']], 
-                     key=lambda x: x['marker_offset'] - am['marker_offset'], default=None)
-            
-            if pm and sm and pm['current_value'] == args.current_passive and sm['current_value'] == args.current_stats:
-                # Basic distance check to ensure they are likely part of the same block
-                if (pm['marker_offset'] - am['marker_offset']) < 1000 and (sm['marker_offset'] - am['marker_offset']) < 1000:
-                    matched_entities.append((am, pm, sm))
-
-        if len(matched_entities) == 0:
-            print(f"Error: No character found with Active={args.current_active}, Passive={args.current_passive}, Stats={args.current_stats}.")
-            sys.exit(1)
-        if len(matched_entities) > 1:
-            print(f"Error: Found {len(matched_entities)} characters with matching point values. Be more specific or use --mode all.")
-            sys.exit(1)
-            
-        to_patch = list(matched_entities[0])
-    else:
-        for f in fields:
-            to_patch.extend(field_results[f])
-
-    print(f"Plan: Patching {len(to_patch)} fields -> {args.new_amount}")
-    for c in to_patch:
-        # We need to find which field this is for logging
-        # (This is a bit hacky since we lost the field name in the candidate list if we just use core)
-        # But we can look it up or just print offset
-        print(f"  Offset 0x{c['marker_offset']:X}: {c['current_value']} -> {args.new_amount}")
-        if not args.dry_run:
-            save.patch_candidate(c, args.new_amount)
-
-    if not args.dry_run:
-        out_path = args.out if args.out else args.save_file + ".perks.patched"
-        save.save(out_path)
-        print(f"Successfully saved to: {out_path}")
-    else:
-        print("Dry-run complete. No changes saved.")
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
